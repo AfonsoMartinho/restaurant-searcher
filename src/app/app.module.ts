@@ -5,9 +5,11 @@ import { AppComponent } from './app.component';
 // Import for API
 import {HttpClientModule} from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
+import { RestaurantCardComponent } from './components/restaurant-card/restaurant-card.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RestaurantCardComponent
   ],
   imports: [
     BrowserModule,

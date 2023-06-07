@@ -1,0 +1,14 @@
+.restaurants {
+  width: 100%;
+  padding: 64px;
+  
+  &__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      
+      &-card{
+        height: 100%;
+      }
+  }
+}

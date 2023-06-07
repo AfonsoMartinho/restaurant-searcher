@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RestaurantsService } from './services/restaurants.service'
+import { IRestaurant } from './models/restaurant.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
 
@@ -12,21 +13,22 @@ export class AppComponent implements OnInit {
 
   }
   postCode: string = "ec4m";
+  currentPage: number = 1;
 
-  restaurantsData?: any[]
+  restaurantsData?: IRestaurant[]
 
   ngOnInit(): void {
-    this.getRestaurantsData(this.postCode);
+    this.getRestaurantsData(this.postCode, this.currentPage);
   }
   onSubmit() {
-    this.getRestaurantsData(this.postCode);
+    this.getRestaurantsData(this.postCode, this.currentPage);
     this.postCode = "";
   }
 
-  private getRestaurantsData(postCode: string) {
-    this.restaurantsService.getRestaurantsData(postCode)
+  private getRestaurantsData(postCode: string, currentPage:number) {
+    this.restaurantsService.getRestaurantsData(postCode, currentPage)
     .subscribe({
-      next: (response: any) => {
+      next: (response: IRestaurant[]) => {
         this.restaurantsData = response;
         console.log(response);
       }
