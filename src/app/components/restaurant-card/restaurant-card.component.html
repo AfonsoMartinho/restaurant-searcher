@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card__image">
+    <img [src]="restaurant.imageUrl" alt="Restaurant Logo">
+  </div>
+  <div class="card__details">
+    <div class="card__details-top">
+      <h2 class="card__details-restaurant-name">{{ restaurant.name }}</h2>
+      <div class="card__details-rating">{{ restaurant.rating }} / 5</div>
+    </div>
+    <ul class="card__details-cuisine-types">
+      <li *ngFor="let cuisine of restaurant.cuisineTypes">{{ cuisine }}</li>
+    </ul>
+  </div>
+</div>
