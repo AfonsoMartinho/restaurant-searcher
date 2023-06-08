@@ -5,7 +5,7 @@ import { of, throwError } from 'rxjs';
 import { IRestaurant } from './models/restaurant.model';
 import { FormsModule } from '@angular/forms';
 import { RestaurantCardComponent } from './components/restaurant-card/restaurant-card.component';
-import { EmptyStateComponent } from './components/empty-state/empty-state.component';
+import { MessageDisplayerComponent } from './components/message-displayer/message-displayer.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         RestaurantCardComponent,
-        EmptyStateComponent,
+        MessageDisplayerComponent,
         PaginationComponent,
         LoaderComponent
       ],

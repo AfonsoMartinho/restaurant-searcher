@@ -16,7 +16,6 @@ export class RestaurantsService {
     })
     .pipe(map(data => {
       const openRestaurants = data.Restaurants.filter((restaurant:any) => restaurant.IsOpenNow)
-      console.log(openRestaurants);
       return openRestaurants.map((restaurant: any) => {
           return {
             name: restaurant.Name,

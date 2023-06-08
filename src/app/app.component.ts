@@ -27,7 +27,15 @@ export class AppComponent implements OnInit {
 
   @HostListener('document:keyup.enter')
   onSubmit() {
-    this.getRestaurantsData(this.postCode);
+    if(this.validatePostCode()) {
+      this.getRestaurantsData(this.postCode);
+      this.errorMessage = '';
+    }
+    else {
+      this.errorMessage = 'Please provide a valid post code'
+      this.restaurantsData = []
+      this.updateDisplayedRestaurants()
+    }
   }
 
   getRestaurantsData(postCode: string) {
@@ -61,5 +69,12 @@ export class AppComponent implements OnInit {
   handlePageChange(pageNumber: number) {
     this.currentPage = pageNumber;
     this.updateDisplayedRestaurants();
+  }
+
+  validatePostCode() {
+    if (!this.postCode) return false;
+    const parsedPostcode = this.postCode.replace(/\s/g, "");
+    const regex = /^(GIR 0AA|[A-PR-UWYZ](?:\d{0,2}|[A-HK-Y]\d{0,1}|[A-HK-Y]\d[A-Z])?)(\s?\d[A-HJKPS-UW]?[A-HJKPS-UW-Z]{2})?$/i;
+    return regex.test(parsedPostcode);
   }
 }

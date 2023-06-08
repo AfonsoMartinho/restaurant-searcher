@@ -1,0 +1,5 @@
+<div class="message-displayer">
+    <h1 class="message-displayer__title">{{message}}</h1>
+    <p *ngIf="description" class="message-displayer__description">{{description}}</p>
+    <img *ngIf="imageUrl" class="message-displayer__image" src={{imageUrl}} alt="message displayer image">
+</div>
