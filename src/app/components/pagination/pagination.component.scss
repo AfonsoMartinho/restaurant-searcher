@@ -1,0 +1,41 @@
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 32px;
+
+    &-button {
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      background: none;
+      transition: background ease 200ms;
+
+      &:hover {
+        background-color: lightgrey;
+      }
+
+      &:disabled {
+        pointer-events: none;
+        .arrow { // the arrow svg
+          fill: lightgrey;
+        }
+      }
+
+
+      &--current {
+        background: #e8e7e7;
+        pointer-events: none;
+      }
+    }
+  }

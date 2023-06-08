@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   postCode: string = "ec4m";
-  currentPage: number = 1;
+  currentPage: number = 0;
   itemsPerPage: number = 15;
   restaurantsData: IRestaurant[] = [];
   displayedRestaurants: IRestaurant[] = [];
@@ -69,8 +69,8 @@ export class AppComponent implements OnInit {
     this.displayedRestaurants = this.restaurantsData.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  setPage(number=1) {
-    this.currentPage += number;
+  handlePageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
     this.updateDisplayedRestaurants();
   }
 
