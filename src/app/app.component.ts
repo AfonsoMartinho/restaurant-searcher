@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { RestaurantsService } from './services/restaurants.service'
 import { IRestaurant } from './models/restaurant.model';
 
@@ -9,29 +9,70 @@ import { IRestaurant } from './models/restaurant.model';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private restaurantsService: RestaurantsService) {
+  constructor(
+    private restaurantsService: RestaurantsService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
-  }
   postCode: string = "ec4m";
   currentPage: number = 1;
+  itemsPerPage: number = 15;
+  restaurantsData: IRestaurant[] = [];
+  displayedRestaurants: IRestaurant[] = [];
+  errorMessage: string = "";
+  isLoading: boolean = false;
+  totalPages: number = 0;
 
-  restaurantsData?: IRestaurant[]
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.getRestaurantsData(this.postCode, this.currentPage);
-  }
+  @HostListener('document:keyup.enter')
   onSubmit() {
-    this.getRestaurantsData(this.postCode, this.currentPage);
-    this.postCode = "";
+    if (this.validatePostCode(this.postCode)) {
+      this.getRestaurantsData(this.postCode);
+      this.errorMessage = "";
+    } else {
+      this.errorMessage = "Invalid post code.";
+    }
   }
 
-  private getRestaurantsData(postCode: string, currentPage:number) {
-    this.restaurantsService.getRestaurantsData(postCode, currentPage)
-    .subscribe({
-      next: (response: IRestaurant[]) => {
-        this.restaurantsData = response;
-        console.log(response);
-      }
-    });
+  private getRestaurantsData(postCode: string) {
+    this.isLoading = true;
+    this.restaurantsData = [];
+    this.currentPage = 1;
+
+    this.restaurantsService.getRestaurantsData(postCode)
+      .subscribe({
+        next: (response: IRestaurant[]) => {
+          this.restaurantsData = response;
+          console.log(response);
+          this.changeDetectorRef.detectChanges();
+          this.updateDisplayedRestaurants();
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.errorMessage = "An error occurred while fetching restaurants data.";
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
   }
+
+  private validatePostCode(postCode: string): boolean {
+    // TODO Implement your post code validation logic here
+    return true;
+  }
+
+  private updateDisplayedRestaurants() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    this.totalPages = Math.ceil(this.restaurantsData.length / this.itemsPerPage);
+    this.displayedRestaurants = this.restaurantsData.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  setPage(number=1) {
+    this.currentPage += number;
+    this.updateDisplayedRestaurants();
+  }
+
+
 }
