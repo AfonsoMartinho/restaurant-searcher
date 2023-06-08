@@ -9,7 +9,7 @@ export class RestaurantsService {
 
   constructor(private http: HttpClient) { }
 
-  getRestaurantsData(postCode: string): Observable<any>{
+  getOpenRestaurantsData(postCode: string): Observable<any>{
     return this.http.get<any>(`/api/restaurants/bypostcode/${postCode}`, {
       headers: new HttpHeaders()
         .set( 'Content-Type', 'application/json'),

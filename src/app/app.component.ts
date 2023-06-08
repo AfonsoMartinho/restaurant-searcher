@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  postCode: string = "ec4m";
+  postCode: string = "";
   currentPage: number = 0;
   itemsPerPage: number = 15;
   restaurantsData: IRestaurant[] = [];
@@ -27,24 +27,18 @@ export class AppComponent implements OnInit {
 
   @HostListener('document:keyup.enter')
   onSubmit() {
-    if (this.validatePostCode(this.postCode)) {
-      this.getRestaurantsData(this.postCode);
-      this.errorMessage = "";
-    } else {
-      this.errorMessage = "Invalid post code.";
-    }
+    this.getRestaurantsData(this.postCode);
   }
 
-  private getRestaurantsData(postCode: string) {
+  getRestaurantsData(postCode: string) {
     this.isLoading = true;
     this.restaurantsData = [];
     this.currentPage = 1;
 
-    this.restaurantsService.getRestaurantsData(postCode)
+    this.restaurantsService.getOpenRestaurantsData(postCode)
       .subscribe({
         next: (response: IRestaurant[]) => {
           this.restaurantsData = response;
-          console.log(response);
           this.changeDetectorRef.detectChanges();
           this.updateDisplayedRestaurants();
         },
@@ -58,12 +52,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  private validatePostCode(postCode: string): boolean {
-    // TODO Implement your post code validation logic here
-    return true;
-  }
-
-  private updateDisplayedRestaurants() {
+  updateDisplayedRestaurants() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.totalPages = Math.ceil(this.restaurantsData.length / this.itemsPerPage);
     this.displayedRestaurants = this.restaurantsData.slice(startIndex, startIndex + this.itemsPerPage);
@@ -73,6 +62,4 @@ export class AppComponent implements OnInit {
     this.currentPage = pageNumber;
     this.updateDisplayedRestaurants();
   }
-
-
 }

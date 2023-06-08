@@ -13,7 +13,6 @@ export class PaginationComponent {
 
     setPage(number=1) {
       const page = this.currentPage += number;
-      // this.updateDisplayedRestaurants();
       this.pageSetted.emit(page)
     }
 }

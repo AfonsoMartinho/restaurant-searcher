@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EmptyStateComponent } from './empty-state.component';
 
 describe('EmptyStateComponent', () => {
@@ -8,36 +7,33 @@ describe('EmptyStateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EmptyStateComponent]
-    })
-    .compileComponents();
+      declarations: [EmptyStateComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [EmptyStateComponent]
-    });
     fixture = TestBed.createComponent(EmptyStateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display the correct title', () => {
+  it('should render the title', () => {
     const titleElement: HTMLElement = fixture.nativeElement.querySelector('.empty-state__title');
     expect(titleElement.textContent).toContain('Sorry, no restaurants where found!');
   });
 
-  it('should display the correct description', () => {
+  it('should render the description', () => {
     const descriptionElement: HTMLElement = fixture.nativeElement.querySelector('.empty-state__description');
     expect(descriptionElement.textContent).toContain('Please try a different post code');
   });
 
-  it('should display the correct image source', () => {
+  it('should render the image', () => {
     const imageElement: HTMLImageElement = fixture.nativeElement.querySelector('.empty-state__image');
     expect(imageElement.src).toContain('assets/sad-face.png');
+    expect(imageElement.alt).toBe('sad face emoji');
   });
 });
