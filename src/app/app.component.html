@@ -22,10 +22,17 @@
       <app-restaurant-card class="restaurants__grid-card" *ngFor="let restaurant of displayedRestaurants" [restaurant]="restaurant"></app-restaurant-card>
     </div>
     <div class="restaurants__empty" *ngIf="restaurantsData && restaurantsData.length === 0 && currentPage !== 0 && !errorMessage">
-      <app-empty-state />
+      <app-message-displayer 
+        message="Sorry, no restaurants where found!"
+        description="Please try a diferent Post Code"
+        imageUrl="../../../assets/sad-face.png"
+        />
     </div>
     <div class="restaurants__error" *ngIf="errorMessage">
-      {{ errorMessage }}
+      <app-message-displayer 
+        message={{errorMessage}}
+        imageUrl="../../../assets/sad-face.png"
+        />
     </div>
   </ng-template>
   <app-pagination (pageSetted)="handlePageChange($event)" [totalPages]="totalPages" [currentPage]="currentPage" *ngIf="!isLoading && displayedRestaurants && displayedRestaurants.length > 0" />

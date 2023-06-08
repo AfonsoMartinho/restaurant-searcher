@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
       this.errorMessage = '';
     }
     else {
-      this.errorMessage = 'Please Provide a valid post code'
+      this.errorMessage = 'Please provide a valid post code'
       this.restaurantsData = []
       this.updateDisplayedRestaurants()
     }

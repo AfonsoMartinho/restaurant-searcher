@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EmptyStateComponent } from './empty-state.component';
+import { MessageDisplayerComponent } from './message-displayer.component';
 
-describe('EmptyStateComponent', () => {
-  let component: EmptyStateComponent;
-  let fixture: ComponentFixture<EmptyStateComponent>;
+describe('MessageDisplayerComponent', () => {
+  let component: MessageDisplayerComponent;
+  let fixture: ComponentFixture<MessageDisplayerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EmptyStateComponent],
+      declarations: [MessageDisplayerComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmptyStateComponent);
+    fixture = TestBed.createComponent(MessageDisplayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
