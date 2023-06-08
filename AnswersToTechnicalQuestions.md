@@ -28,6 +28,6 @@ Here's a code snippet of one of the implementations:
 ## 3rd Question
 I was never requested to track down a performance issue in production, however I've been working with Jenkins for some time now, and I understand that there are several ways to track the website performance:
 
-Analyse performance metrics to check to look for trends, spikes, or anomalies in response times, CPU/memory usage, database query times, or network latency. 
-Install monitoring plugin such the Prometheus and Grafana or JavaMelody.
-Automate performance testing with Ligthouse or JMeter
+1. Analyse performance metrics to check to look for trends, spikes, or anomalies in response times, CPU/memory usage, database query times, or network latency. 
+2. Install monitoring plugin such the Prometheus and Grafana or JavaMelody.
+3. Automate performance testing with Ligthouse or JMeter
