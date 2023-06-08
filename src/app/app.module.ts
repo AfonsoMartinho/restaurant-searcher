@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { RestaurantCardComponent } from './components/restaurant-card/restaurant-card.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { EmptyStateComponent } from './components/empty-state/empty-state.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 @NgModule({
   declarations: [
     AppComponent,
-    RestaurantCardComponent
+    RestaurantCardComponent,
+    LoaderComponent,
+    EmptyStateComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

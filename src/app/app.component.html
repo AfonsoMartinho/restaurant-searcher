@@ -2,10 +2,10 @@
   <div class="restaurants__header">
     <div class="restaurants__header-title">
       <h1>🍟 Welcome to Restaurants Search 🍔</h1>
-      <p>get a list of open restaurants in your area</p>
+      <p>search restaurants in your area by <b>post code</b></p>
     </div>
     <div class="restaurants__search">
-      <input class="restaurants__search-input" type="text" [(ngModel)]="postCode" placeholder="Enter post code">
+      <input id="restaurant-search" class="restaurants__search-input" type="text" [(ngModel)]="postCode" placeholder="Enter post code">
       <span class="restaurants__search-button">
         <button (click)="onSubmit()" (keyup.enter)="onSubmit()">Search</button>
       </span>
@@ -13,7 +13,7 @@
   </div>
   <div *ngIf="isLoading; else content">
     <div class="restaurants__loading">
-      <app-loader></app-loader>
+      <app-loader />
     </div>
   </div>
 
@@ -21,27 +21,13 @@
     <div class="restaurants__grid" *ngIf="displayedRestaurants && displayedRestaurants.length > 0">
       <app-restaurant-card class="restaurants__grid-card" *ngFor="let restaurant of displayedRestaurants" [restaurant]="restaurant"></app-restaurant-card>
     </div>
-    <div class="restaurants__empty" *ngIf="restaurantsData && restaurantsData.length === 0">
-      No restaurants found.
+    <div class="restaurants__empty" *ngIf="restaurantsData && restaurantsData.length === 0 && currentPage !== 0">
+      <app-empty-state />
     </div>
     <div class="restaurants__error" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
   </ng-template>
-
-  <div class="restaurants__pagination" *ngIf="!isLoading && displayedRestaurants && displayedRestaurants.length > 0">
-    <button (click)="setPage(-1)" [disabled]="currentPage === 1" class="restaurants__pagination-button">
-      <!-- left arrow -->
-      <svg viewBox="0 0 320 512" width="16px" height="16px"><path class="arrow" fill="black" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
-    </button>
-    <div *ngIf="currentPage !== 1" class="restaurants__pagination-button restaurants__pagination-button" (click)="setPage(-1)">{{currentPage - 1}}</div>
-    <div class="restaurants__pagination-button restaurants__pagination-button--current">{{currentPage}}</div>
-    <div *ngIf="currentPage !== totalPages" class="restaurants__pagination-button restaurants__pagination-button" (click)="setPage(1)">{{currentPage + 1}}</div>
-    <div *ngIf="currentPage + 2 <= totalPages" class="restaurants__pagination-button restaurants__pagination-button" (click)="setPage(2)">{{currentPage + 2}}</div>
-    <button (click)="setPage(1)" [disabled]="currentPage === totalPages" class="restaurants__pagination-button">
-      <!-- right arrow -->
-      <svg viewBox="0 0 320 512" width="16px" height="16px"><path class="arrow" fill="black" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
-    </button>
-  </div>
+  <app-pagination (pageSetted)="handlePageChange($event)" [totalPages]="totalPages" [currentPage]="currentPage" *ngIf="!isLoading && displayedRestaurants && displayedRestaurants.length > 0" />
 </section>
 
